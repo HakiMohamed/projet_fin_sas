@@ -18,9 +18,9 @@ typedef struct typetache{
 }typetache;
 //----------------------------------------[ declaration ] -------------------------------------------------------------------------------------------
 
-typetache ajouter	, tache[300];
+typetache ajouter	, tache[300], k;
 typetache ajouter_plusieurs;
-int i=0 , nombreajoute, nombretaches=0, N=0, id=0,comparer=0;
+int i=0 , nombreajoute, nombretaches=0, N=0, id=0,comparer=0, j ;
 
 
 
@@ -57,9 +57,10 @@ void ajoute(){
 	scanf("%d",&tache[N].deadline.annee);
 	printf("veuillez saisir le statut de votre tache : ");
 	scanf("  %[^\n]s  ",tache[N].statut);
+	tache[N].identifian=nombretaches+1;
 	nombretaches++;
-	N++;
-	tache[N].identifian=N;
+	N++;//
+	
 	
 	comparer++;	
 }
@@ -80,16 +81,34 @@ ajoute();
 	
 	}	
 }
+
+//------------------------------------------------[ fonction d'affichage ]-------------------------------------------------------------
+
 void afficher(){
 	for(i=0;i<nombretaches;i++){
-		printf(" la tache numero :%d \n\nle titre : %s \n l'idantifiant :%d \n la description :%s \n deadline :\n le jour : %d \n le mois : %d \n l'annee : %d\n\n\n",i+1,tache[i].titre,tache[i].identifian,tache[i].description,tache[i].deadline.jour,tache[i].deadline.mois,tache[i].deadline.annee);
+		printf(" la tache numero :%d \n\nle titre : %s \n l'idantifiant :%d \n la description :%s \n deadline :\n le jour : %d \n le mois : %d \n l'annee : %d\n statut : %s \n\n\n",i+1,tache[i].titre,tache[i].identifian,tache[i].description,tache[i].deadline.jour,tache[i].deadline.mois,tache[i].deadline.annee,tache[i].statut);
 	}
 }
 
+//------------------------------------------------------
 
 
-
-
+void triTitres() {
+    typetache temp;
+int i;
+int j;
+    for (i = 0; i < nombretaches - 1; i++) {
+        for (j = 0; j < nombretaches - i - 1; j++) {
+            if (strcmp(tache[j].titre, tache[j + 1].titre) > 0) {
+                temp = tache[j];
+                tache[j] = tache[j + 1];
+                tache[j + 1] = temp;
+                
+            }
+        }
+    }
+    
+}
 
 
 
@@ -135,6 +154,10 @@ int main(){
 		case 2 : ajouter_plus(); system("cls");
 		break;
 		case 3 : afficher();
+		case 4 : triTitres(); 
+        printf("Les taches ont ete triees par titre.\n");
+        afficher();
+        break;
 		
 	}
 	

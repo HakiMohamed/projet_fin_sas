@@ -20,13 +20,13 @@ typedef struct typetache{
 
 typetache ajouter	, tache[300];
 typetache ajouter_plusieurs;
-int i , nombreajoute, nombretaches=0, N=0;
+int i=0 , nombreajoute, nombretaches=0, N=0, id=0,comparer=0;
 
 
 
 //----------------------------------------------------[ menu ]------------------------------------------------------------------------------------------
 void menu (){
-	
+
 	printf("\n         1__________________Ajouter une nouvelle tache ____\n");
 	printf("\n         2_________Ajouter plusieurs nouvelles taches______\n");
 	printf("\n         3_________Afficher la liste de toutes les taches__\n");
@@ -40,11 +40,12 @@ void menu (){
 //----------------------------------------------------[fonction pour ajouter une tache ]-------------------------------------------------------------------------------------
 
 void ajoute(){
+	
 	printf("Ajouter une nouvelle tache : \n");
 	printf("le titre: ");
 	scanf("  %[^\n]s ",tache[N].titre);
-	printf("l'idantifiant :");
-	scanf("%d",&tache[N].identifian);
+	//printf("l'idantifiant :");
+	//scanf("%d",&tache[N].identifian);
 	printf("veuillez saisir la description de votre tache : ");
 	scanf("  %[^\n]s ",tache[N].description);
 	printf("---------deadline-----------  \n");
@@ -57,39 +58,31 @@ void ajoute(){
 	printf("veuillez saisir le statut de votre tache : ");
 	scanf("  %[^\n]s  ",tache[N].statut);
 	nombretaches++;
-	N++;	
+	N++;
+	tache[N].identifian=N;
+	
+	comparer++;	
 }
 //-----------------------------------------------------[fonctions pour ajouter plusieurs taches ]--------------------------------------------------------------------------
 
 void ajouter_plus(){
+	/*if(i==N){
+		N++;
+	}
+	else 
+	N=N;*/
 	
 	printf("\nveuillez saisir nombre des taches a ajouter ");
 	scanf("%d",&nombreajoute);
-for(i=N;i<nombreajoute;i++){
-
-	printf("Ajouter une nouvelle tache : \n");
-	printf("\nla tache numero %d\n",i+1);
-	printf("le titre: ");
-	scanf("  %[^\n]s ",tache[i].titre);
-	printf("l'idantifiant :");
-	scanf("%d",&tache[i].identifian);
-	printf("veuillez saisir la description de votre tache : ");
-	scanf("  %[^\n]s ",tache[i].description);
-	printf("---------deadline-----------  \n");
-	printf("le jour : ");
-      scanf("%d", &tache[i].deadline.jour);
-	printf("le mois :");
-	scanf("%d", &tache[i].deadline.mois);
-	printf("l'annee :");
-	scanf("%d",&tache[i].deadline.annee);
-	printf("veuillez saisir le statut de votre tache : ");
-	scanf("  %[^\n]s  ",tache[i].statut);
-	nombretaches++;
+for(i=N;i<nombreajoute+1;i++){
+	printf("la tache numero %d \n",N+1);
+ajoute();
+	
 	}	
 }
 void afficher(){
 	for(i=0;i<nombretaches;i++){
-		printf(" la tache numero :%d \nle titre : %s \n l'idantifiant :%d \n la description :%s \n deadline :\n le jour : %d \n le mois : %d \n l'annee : %d\n",i+1,tache[i].titre,tache[i].identifian,tache[i].description,tache[i].deadline.jour,tache[i].deadline.mois,tache[i].deadline.annee);
+		printf(" la tache numero :%d \n\nle titre : %s \n l'idantifiant :%d \n la description :%s \n deadline :\n le jour : %d \n le mois : %d \n l'annee : %d\n\n\n",i+1,tache[i].titre,tache[i].identifian,tache[i].description,tache[i].deadline.jour,tache[i].deadline.mois,tache[i].deadline.annee);
 	}
 }
 
@@ -133,7 +126,6 @@ void afficher(){
 int main(){
 	int choix;
 	while(1){
-	
 	menu();
 	printf("veuillez entrer votre choix : ");
 	scanf("%d",&choix);
@@ -141,9 +133,12 @@ int main(){
 		case 1 : ajoute(); system("cls");
 		break;
 		case 2 : ajouter_plus(); system("cls");
+		break;
 		case 3 : afficher();
 		
 	}
+	
+		
 	if(choix == 9)
 	break;
 	};

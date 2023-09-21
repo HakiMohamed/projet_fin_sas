@@ -26,22 +26,22 @@ int i=0 , nombreajoute, nombretaches=0, N=0, Nbrtacheajoute=0,NBR=0,comparer, j 
 
 //----------------------------------------------------[ menu ]------------------------------------------------------------------------------------------
 void menu (){
-
-	printf("\n         1__________________Ajouter une nouvelle tache ____\n");
-	printf("\n         2_________Ajouter plusieurs nouvelles taches______\n");
-	printf("\n         3_________Afficher la liste de toutes les taches__\n");
-	printf("\n         4_________________Modifier une tache_____________ \n");
-	printf("\n         5_____________Ajouter une nouvelle tache_________ \n");
-	printf("\n         6____________Supprimer une tache par identifiant. \n");
-	printf("\n         7________________Rechercher les Taches____________\n");
-	printf("\n         8____________________Statistiques________________ \n");
-	printf("\n         9_______________________QUITTER ___________________\n");	
+      printf("\n        ====================================================== ");
+	printf("\n        |1__________________Ajouter une nouvelle tache ______| ");
+	printf("\n        |2_________Ajouter plusieurs nouvelles taches________| ");
+	printf("\n        |3_________Afficher la liste de toutes les taches____| ");
+	printf("\n        |4_________________Modifier une tache________________| ");
+	printf("\n        |5____________Supprimer une tache par identifiant____| ");
+	printf("\n        |6________________Rechercher les Taches______________| ");
+	printf("\n        |7____________________Statistiques___________________| ");
+	printf("\n        |8_______________________QUITTER ____________________| ");	
+	printf("\n        ====================================================== \n");
 }
 //----------------------------------------------------[fonction pour ajouter une tache ]-------------------------------------------------------------------------------------
 
 void ajoute(){
 	
-	printf("Ajouter une nouvelle tache : \n");
+	printf("\nAjouter une nouvelle tache : \n");
 	printf("le titre: ");
 	scanf("  %[^\n]s ",tache[N].titre);
 	//printf("l'idantifiant :");
@@ -99,7 +99,7 @@ void afficher(){
 	}
 }
 
-//------------------------------------------------------
+//-----------------------------------------------------------------------------------------------------------------------------------
 
 
 void triTitres() {
@@ -117,6 +117,8 @@ int j;
                 tache[j] = temp;
                 
             }
+      
+            
         }
         
         
@@ -196,7 +198,7 @@ int main(){
 	}
 	
 		
-	if(choix == 9){
+	if(choix == 8){
 	system("cls");
 	break;}
 	};

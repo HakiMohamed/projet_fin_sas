@@ -20,7 +20,7 @@ typedef struct typetache{
 
 typetache tache[300], k;
 typetache ajouter_plusieurs;
-int i=0 , nombreajoute, nombretaches=0, N=0, id=0,comparer, j ;
+int i=0 , nombreajoute, nombretaches=0, N=0, Nbrtacheajoute=0,NBR=0,comparer, j ;
 
 
 
@@ -67,18 +67,24 @@ void ajoute(){
 //-----------------------------------------------------[fonctions pour ajouter plusieurs taches ]--------------------------------------------------------------------------
 
 void ajouter_plus(){
-	/*if(i==N){
-		N++;
-	}
-	else 
-	N=N;*/
-	
+int Nn;
+if(N==0){
+	Nn=0;
+}
+else {
+	Nn=N;
+}
+
 	printf("\nveuillez saisir nombre des taches a ajouter ");
 	scanf("%d",&nombreajoute);
-	if(N!=0)
-	comparer=N;
-	else comparer = nombreajoute;
-for(i=N;i<comparer+nombreajoute;i++){
+	if(N!=0){
+		NBR=nombreajoute+N;
+	}
+	else{
+		NBR=nombreajoute;
+	}
+
+for(i=Nn;i<NBR;i++){
 	printf("la tache numero %d \n",N+1);
 ajoute();
 	
@@ -124,7 +130,14 @@ int j;
 
 
 
-
+void sousmenuAffich(){
+	system("cls");
+	printf("\n************1__Trier les taches par ordre alphabetique**************************\n");
+	printf("\n************2__Trier les taches par deadline************************************\n");
+	printf("\n***********3__Afficher les taches dont le deadline est dans 3 jours ou moins****\n");
+	printf("\n***********3__ENTRER 0 pour reterner au menu principale*************************\n");
+	
+}
 
 
 
@@ -152,7 +165,7 @@ int j;
 
 //---------------------------------------------------------------------la fonction principale (MAIN) -----------------------------------------------------------------------
 int main(){
-	int choix;
+	int choix ,choixdeux;
 	while(1){
 	menu();
 	printf("veuillez entrer votre choix : ");
@@ -163,17 +176,29 @@ int main(){
 		case 2 : ajouter_plus(); system("cls");
 		break;
 		case 3 : afficher();
-		case 4 : triTitres(); 
-        printf("Les taches ont ete triees par titre.\n");
-        afficher();
+		break;
+		case 4 :
+			sousmenuAffich();
+		printf("\nveuillez entrer un de ces choix  : ");
+		scanf("%d",&choixdeux);
+		switch(choixdeux) {
+			
+			case 1 : triTitres();printf("Les taches ont ete triees par titre.\n");
+                 afficher();
+			break;
+		       
+			
+			
+		}
+        
         break;
 		
 	}
 	
 		
-	if(choix == 9)
-	//system("cls");
-	break;
+	if(choix == 9){
+	system("cls");
+	break;}
 	};
 	
 	return 0;

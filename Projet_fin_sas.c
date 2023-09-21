@@ -18,9 +18,9 @@ typedef struct typetache{
 }typetache;
 //----------------------------------------[ declaration ] -------------------------------------------------------------------------------------------
 
-typetache ajouter	, tache[300], k;
+typetache tache[300], k;
 typetache ajouter_plusieurs;
-int i=0 , nombreajoute, nombretaches=0, N=0, id=0,comparer=0, j ;
+int i=0 , nombreajoute, nombretaches=0, N=0, id=0,comparer, j ;
 
 
 
@@ -59,10 +59,10 @@ void ajoute(){
 	scanf("  %[^\n]s  ",tache[N].statut);
 	tache[N].identifian=nombretaches+1;
 	nombretaches++;
-	N++;//
+	N++;
 	
 	
-	comparer++;	
+		
 }
 //-----------------------------------------------------[fonctions pour ajouter plusieurs taches ]--------------------------------------------------------------------------
 
@@ -75,7 +75,10 @@ void ajouter_plus(){
 	
 	printf("\nveuillez saisir nombre des taches a ajouter ");
 	scanf("%d",&nombreajoute);
-for(i=N;i<nombreajoute+1;i++){
+	if(N!=0)
+	comparer=N;
+	else comparer = nombreajoute;
+for(i=N;i<comparer+nombreajoute;i++){
 	printf("la tache numero %d \n",N+1);
 ajoute();
 	
@@ -97,15 +100,21 @@ void triTitres() {
     typetache temp;
 int i;
 int j;
-    for (i = 0; i < nombretaches - 1; i++) {
-        for (j = 0; j < nombretaches - i - 1; j++) {
-            if (strcmp(tache[j].titre, tache[j + 1].titre) > 0) {
-                temp = tache[j];
-                tache[j] = tache[j + 1];
-                tache[j + 1] = temp;
+    for (i = 0; i < nombretaches; i++) {
+    	
+    	
+    	
+        for (j = 1; j < nombretaches; j++) {
+            if (strcmp(tache[i].titre, tache[j].titre) > 0) {
+                temp = tache[i];
+                tache[i] = tache[j];
+                tache[j] = temp;
                 
             }
         }
+        
+        
+        
     }
     
 }
@@ -163,6 +172,7 @@ int main(){
 	
 		
 	if(choix == 9)
+	//system("cls");
 	break;
 	};
 	

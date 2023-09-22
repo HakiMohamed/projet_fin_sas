@@ -8,7 +8,6 @@ typedef struct datecomplet{
 	int annee;
 }datecomplet;
 
-
 typedef struct typetache{
 	int identifian;
 	char titre[50];

@@ -21,8 +21,6 @@ typetache tache[300], k;
 typetache ajouter_plusieurs;
 int i=0 , nombreajoute, nombretaches=0, N=0, Nbrtacheajoute=0,NBR=0,comparer, j ;
 
-
-
 //----------------------------------------------------[ menu ]------------------------------------------------------------------------------------------
 void menu (){
       printf("\n        ====================================================== ");
@@ -47,7 +45,7 @@ void ajoute(){
 	//scanf("%d",&tache[N].identifian);
 	printf("veuillez saisir la description de votre tache : ");
 	scanf("  %[^\n]s ",tache[N].description);
-	printf("---------deadline-----------  \n");
+	printf("---------date limite-----------  \n");
 	printf("le jour : ");
       scanf("%d", &tache[N].deadline.jour);
 	printf("le mois :");
@@ -59,19 +57,16 @@ void ajoute(){
 	tache[N].identifian=nombretaches+1;
 	nombretaches++;
 	N++;
-	
-	
-		
 }
 //-----------------------------------------------------[fonctions pour ajouter plusieurs taches ]--------------------------------------------------------------------------
 
 void ajouter_plus(){
-int Nn;
+int debutboucle;
 if(N==0){
-	Nn=0;
+	debutboucle=0;
 }
 else {
-	Nn=N;
+	debutboucle=N;
 }
 
 	printf("\nveuillez saisir nombre des taches a ajouter ");
@@ -83,7 +78,7 @@ else {
 		NBR=nombreajoute;
 	}
 
-for(i=Nn;i<NBR;i++){
+for(i=debutboucle;i<NBR;i++){
 	printf("la tache numero %d \n",N+1);
 ajoute();
 	
@@ -94,79 +89,66 @@ ajoute();
 
 void afficher(){
 	for(i=0;i<nombretaches;i++){
-		printf(" la tache numero :%d \n\nle titre : %s \n l'idantifiant :%d \n la description :%s \n deadline :\n le jour : %d \n le mois : %d \n l'annee : %d\n statut : %s \n\n\n",i+1,tache[i].titre,tache[i].identifian,tache[i].description,tache[i].deadline.jour,tache[i].deadline.mois,tache[i].deadline.annee,tache[i].statut);
+		printf(" la tache numero :%d \n\nle titre : %s \n l'idantifiant :%d \n la description :%s \n date limite  \n le jour : %d \n le mois : %d \n l'annee : %d\n statut : %s \n\n\n",i+1,tache[i].titre,tache[i].identifian,tache[i].description,tache[i].deadline.jour,tache[i].deadline.mois,tache[i].deadline.annee,tache[i].statut);
 	}
 }
 
-//-----------------------------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------finction de trie par alphabetique -----------------------------------------------------------------------------
 
 
 void triTitres() {
     typetache temp;
 int i;
 int j;
-    for (i = 0; i < nombretaches; i++) {
+    for (i = 0; i < nombretaches-1; i++) {
     	
-    	
-    	
-        for (j = 1; j < nombretaches; j++) {
+		for (j = 1; j < nombretaches; j++) {
             if (strcmp(tache[i].titre, tache[j].titre) > 0) {
                 temp = tache[i];
                 tache[i] = tache[j];
                 tache[j] = temp;
-                
+                }
+          }  
+     }
+}
+//------------------------------------------------------finction de trie par date  -----------------------------------------------------------------------------
+
+void tridate() {
+    typetache temp;
+int i;
+int j;
+    for (i = 0; i < nombretaches-1; i++) {
+    	
+    	
+    	
+        for (j = 1; j < nombretaches; j++) {
+            if (tache[i].deadline.annee > tache[j].deadline.annee || tache[i].deadline.mois > tache[j].deadline.mois || tache[i].deadline.jour > tache[j].deadline.jour) {
+                temp = tache[i];
+                tache[i] = tache[j];
+                tache[j] = temp; 
             }
-      
-            
-        }
-        
-        
-        
-    }
-    
+        }  
+    }  
 }
 
 
 
 
-
+//------------------------------------------------------fonction de sous menu d'affichage  -----------------------------------------------------------------------------
 
 void sousmenuAffich(){
 	system("cls");
-	printf("\n************1__Trier les taches par ordre alphabetique**************************\n");
-	printf("\n************2__Trier les taches par deadline************************************\n");
-	printf("\n***********3__Afficher les taches dont le deadline est dans 3 jours ou moins****\n");
-	printf("\n***********3__ENTRER 0 pour reterner au menu principale*************************\n");
+	printf("\n************___1__Trier les taches par ordre alphabetique__**************************\n");
+	printf("\n**********____2__Trier les taches par deadline___************************************\n");
+	printf("\n***********____3__Afficher les taches dont le deadline est dans 3 jours ou moins___****\n");
+	printf("\n***********___3__ENTRER 0 pour reterner au menu principale*************************\n");
 	
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 //---------------------------------------------------------------------la fonction principale (MAIN) -----------------------------------------------------------------------
 int main(){
 	int choix ,choixdeux;
+	
 	while(1){
 	menu();
 	printf("veuillez entrer votre choix : ");
@@ -177,14 +159,15 @@ int main(){
 		case 2 : ajouter_plus(); system("cls");
 		break;
 		case 3 : afficher();
-		break;
-		case 4 :
 			sousmenuAffich();
 		printf("\nveuillez entrer un de ces choix  : ");
 		scanf("%d",&choixdeux);
 		switch(choixdeux) {
 			
 			case 1 : triTitres();printf("Les taches ont ete triees par titre.\n");
+                 afficher();
+                 break;
+                 case 2 : tridate(); printf("Les taches ont ete triees par date limite .\n");
                  afficher();
 			break;
 		       

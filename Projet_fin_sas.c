@@ -14,6 +14,7 @@ typedef struct typetache{
 	char description[250];
 	struct datecomplet deadline;
 	char statut[20];
+	
 }typetache;
 //----------------------------------------[ declaration ] -------------------------------------------------------------------------------------------
 
@@ -58,6 +59,7 @@ void ajoute(){
 	nombretaches++;
 	N++;
 }
+
 //-----------------------------------------------------[fonctions pour ajouter plusieurs taches ]--------------------------------------------------------------------------
 
 void ajouter_plus(){
@@ -130,7 +132,66 @@ int j;
         }  
     }  
 }
+//----------------------------------------------fonction de modification---------------------------------------------------------------
+void modifierTache(){
+    int identifiant;
+    int trouve = 0;
 
+    printf("Entrez l'identifiant de la tache a modifier : ");
+    scanf("%d", &identifiant);
+    for (i = 0; i < nombretaches; i++) {
+        if (tache[i].identifian == identifiant) {
+            printf("Modification de la tache numero %d :\n", identifiant);
+            printf("Nouveau titre : ");
+            scanf(" %[^\n]s", tache[i].titre);
+            printf("Nouvelle description : ");
+            scanf(" %[^\n]s", tache[i].description);
+            printf("Nouveau jour de la date limite : ");
+            scanf("%d", &tache[i].deadline.jour);
+            printf("Nouveau mois de la date limite : ");
+            scanf("%d", &tache[i].deadline.mois);
+            printf("Nouvelle annee de la date limite : ");
+            scanf("%d", &tache[i].deadline.annee);
+            printf("Nouveau statut : ");
+            scanf(" %[^\n]s", tache[i].statut);
+            trouve = 1;
+            break; 
+        }
+    }
+
+    if (!trouve) {
+        printf("Tache avec l'identifiant %d non trouvee.\n", identifiant);
+    } else {
+        printf("Tache numero %d modifiee avec succes.\n", identifiant);
+    }
+}
+//---------------------------------------------------------fonction de supprimer une tache ------------------------------------------
+void supprimerTache() {
+    int identifiant;
+    int trouve = 0;
+
+    printf("entrez l'identifiant de la tâche a suprimer : ");
+    scanf("%d", &identifiant);
+
+    
+    for (i = 0; i < nombretaches; i++) {
+        if (tache[i].identifian == identifiant) {
+          
+            for (j = i; j < nombretaches - 1; j++) {
+                tache[j] = tache[j + 1];
+            }
+            nombretaches--;
+            trouve = 1;
+            break; 
+        }
+    }
+
+    if (trouve!=0) {
+        printf("Tache avec l'identifiant %d non trouvee.\n", identifiant);
+    } else {
+        printf("Tache numero %d supprimee avec succes.\n", identifiant);
+    }
+}
 
 
 
@@ -141,7 +202,7 @@ void sousmenuAffich(){
 	printf("\n************___1__Trier les taches par ordre alphabetique__**************************\n");
 	printf("\n**********____2__Trier les taches par deadline___************************************\n");
 	printf("\n***********____3__Afficher les taches dont le deadline est dans 3 jours ou moins___****\n");
-	printf("\n***********___3__ENTRER 0 pour reterner au menu principale*************************\n");
+	printf("\n***********___4__ENTRER 0 pour reterner au menu principale*************************\n");
 	
 }
 
@@ -170,11 +231,13 @@ int main(){
                  case 2 : tridate(); printf("Les taches ont ete triees par date limite .\n");
                  afficher();
 			break;
-		       
-			
-			
+			case 3 :afficher();
+			break;	
 		}
-        
+		break;
+		
+        case 4 : modifierTache();
+        afficher();
         break;
 		
 	}

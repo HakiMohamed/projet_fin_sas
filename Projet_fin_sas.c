@@ -136,24 +136,35 @@ int j;
 void modifierTache(){
     int identifiant;
     int trouve = 0;
+    int choixDEmodification;
 
     printf("Entrez l'identifiant de la tache a modifier : ");
     scanf("%d", &identifiant);
+    printf("veuillez entrer votre choix \n");
+    printf("1_[descibtion]___2[date limit]____3[statut] \n");
+    scanf("%d",&choixDEmodification);
+    
     for (i = 0; i < nombretaches; i++) {
         if (tache[i].identifian == identifiant) {
             printf("Modification de la tache numero %d :\n", identifiant);
-            printf("Nouveau titre : ");
-            scanf(" %[^\n]s", tache[i].titre);
-            printf("Nouvelle description : ");
+            if(choixDEmodification==1){
+		
+		printf("Nouvelle description : ");
             scanf(" %[^\n]s", tache[i].description);
+            }
+            else if(choixDEmodification==2){
+		
             printf("Nouveau jour de la date limite : ");
             scanf("%d", &tache[i].deadline.jour);
             printf("Nouveau mois de la date limite : ");
             scanf("%d", &tache[i].deadline.mois);
             printf("Nouvelle annee de la date limite : ");
             scanf("%d", &tache[i].deadline.annee);
-            printf("Nouveau statut : ");
+            }
+            else if(choixDEmodification==3){
+		printf("Nouveau statut : ");
             scanf(" %[^\n]s", tache[i].statut);
+      }
             trouve = 1;
             break; 
         }
@@ -186,10 +197,36 @@ void supprimerTache() {
         }
     }
 
-    if (trouve!=0) {
+    if (trouve!=1) {
         printf("Tache avec l'identifiant %d non trouvee.\n", identifiant);
     } else {
         printf("Tache numero %d supprimee avec succes.\n", identifiant);
+    }
+}
+//--------------------------------------------------------------------rechercher par identifiant-----------------------------------------------------
+void rechercherParIdentifiant() {
+    int identifiant;
+    int trouve = 0;
+
+    printf("Entrez l'identifiant de la tache pour rechercher  : ");
+    scanf("%d", &identifiant);
+
+
+    for (i = 0; i < nombretaches; i++) {
+        if (tache[i].identifian == identifiant) {
+            printf("Tache trouvee :\n");
+            printf("Numero d'identifiant : %d\n", tache[i].identifian);
+            printf("Titre : %s\n", tache[i].titre);
+            printf("Description : %s\n", tache[i].description);
+            printf("Date limite : %d/%d/%d\n", tache[i].deadline.jour, tache[i].deadline.mois, tache[i].deadline.annee);
+            printf("Statut : %s\n", tache[i].statut);
+            trouve = 1;
+            break; 
+        }
+    }
+
+    if (trouve!=1) {
+        printf("Tâche avec l'identifiant %d non trouvée.\n", identifiant);
     }
 }
 
@@ -202,13 +239,64 @@ void sousmenuAffich(){
 	printf("\n************___1__Trier les taches par ordre alphabetique__**************************\n");
 	printf("\n**********____2__Trier les taches par deadline___************************************\n");
 	printf("\n***********____3__Afficher les taches dont le deadline est dans 3 jours ou moins___****\n");
-	printf("\n***********___4__ENTRER 0 pour reterner au menu principale*************************\n");
+	printf("\n***********____4____________Afficher les taches ___________________________________****\n");
+	printf("\n***********___5__ENTRER 0 pour reterner au menu principale*************************\n");
 	
 }
 
+void sousmenurechercher(){
+		system("cls");
+	printf("\n************___1__rechercher par identifian_**************************\n");
+	printf("\n**********____2__rechercher par titre___************************************\n");
+	printf("\n***********___3__ENTRER 0 pour reterner au menu principale*************************\n");
+}
+
+//------------------------------------------------rechercher avec le titre ------------------------------------------------------------------------------
+
+void rechercherParTitre() {
+    char titreRecherche[50];
+    int trouve = 0;
+
+    printf("Entrez le titre de la tâche à rechercher : ");
+    scanf(" %[^\n]s", titreRecherche);
+
+    
+    for (i = 0; i < nombretaches; i++) {
+        if (strcmp(tache[i].titre, titreRecherche) == 0) {
+            printf("Tache trouvee :\n");
+            printf("Numero identifiant : %d\n", tache[i].identifian);
+            printf("Titre : %s\n", tache[i].titre);
+            printf("Description : %s\n", tache[i].description);
+            printf("Date limite : %d/%d/%d\n", tache[i].deadline.jour, tache[i].deadline.mois, tache[i].deadline.annee);
+            printf("Statut : %s\n", tache[i].statut);
+            trouve = 1;
+        }
+    }
+
+    if (trouve!=1) {
+        printf("Aucune tache avec le titre '%s' trouvee.\n", titreRecherche);
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //---------------------------------------------------------------------la fonction principale (MAIN) -----------------------------------------------------------------------
 int main(){
-	int choix ,choixdeux;
+	int choix ,choixdeux, choixrechercher;
 	
 	while(1){
 	menu();
@@ -219,26 +307,43 @@ int main(){
 		break;
 		case 2 : ajouter_plus(); system("cls");
 		break;
-		case 3 : afficher();
+		case 3 : 
 			sousmenuAffich();
 		printf("\nveuillez entrer un de ces choix  : ");
 		scanf("%d",&choixdeux);
 		switch(choixdeux) {
 			
-			case 1 : triTitres();printf("Les taches ont ete triees par titre.\n");
+			case 1 : triTitres();printf("\nLes taches ont ete triees par titre.\n\n");
                  afficher();
                  break;
-                 case 2 : tridate(); printf("Les taches ont ete triees par date limite .\n");
+                 case 2 : tridate(); printf("\nLes taches ont ete triees par date limite .\n");
                  afficher();
 			break;
 			case 3 :afficher();
 			break;	
+			case 4 : afficher();
+			break;
 		}
 		break;
 		
         case 4 : modifierTache();
         afficher();
         break;
+        case 5 : supprimerTache();
+	  printf("la tache a etais supprime !! \n");
+	  afficher();
+	  break;
+	  case 6 : sousmenurechercher();
+	  printf("veuiller saisir votre choix :");
+	  scanf("%d",&choixrechercher);
+	  switch(choixrechercher){
+	  	case 1 : rechercherParIdentifiant();
+	  	break;
+	  	case 2 : rechercherParTitre();
+	  	break;
+	  }
+	  
+	  break;
 		
 	}
 	

@@ -8,7 +8,6 @@ typedef struct datecomplet{
 	int annee;
 }datecomplet;
 
-
 typedef struct typetache{
 	int identifian;
 	char titre[50];
@@ -21,6 +20,7 @@ typedef struct typetache{
 typetache tache[300], k;
 typetache ajouter_plusieurs;
 int i=0 , nombreajoute, nombretaches=0, N=0, Nbrtacheajoute=0,NBR=0,comparer, j ;
+
 
 
 //----------------------------------------------------[ menu ]------------------------------------------------------------------------------------------

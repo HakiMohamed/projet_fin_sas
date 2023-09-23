@@ -13,6 +13,7 @@ typedef struct typetache{
 	char titre[50];
 	char description[250];
 	struct datecomplet deadline;
+	struct datecomplet dateActuel;
 	int statut;
 	char statutDetache[30];
 	
@@ -327,8 +328,17 @@ void statistique(){
 //---------------------------------------------------------------------la fonction principale (MAIN) -----------------------------------------------------------------------
 int main(){
 	int choix ,choixdeux, choixrechercher;
-	
+		printf("-------Configurer la date -----------  \n\n");
+	printf("------------------------------------------veuillez entrer la date d'aujourd'hui------------------------------------  \n");
+	printf("le jour : ");
+      scanf("%d", &tache[N].dateActuel.jour);
+	printf("le mois :");
+	scanf("%d", &tache[N].dateActuel.mois);
+	printf("l'annee :");
+	scanf("%d",&tache[N].dateActuel.annee);
+	system("cls");
 	while(1){
+	
 	menu();
 	printf("veuillez entrer votre choix : ");
 	scanf("%d",&choix);

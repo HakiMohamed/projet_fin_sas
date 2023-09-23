@@ -238,7 +238,7 @@ void rechercherParIdentifiant() {
             printf("Titre : %s\n", tache[i].titre);
             printf("Description : %s\n", tache[i].description);
             printf("Date limite : %d/%d/%d\n", tache[i].deadline.jour, tache[i].deadline.mois, tache[i].deadline.annee);
-            printf("Statut : %d  %s\n", tache[i].statut , tache[i].statutDetache );
+            printf("Statut : %d => %s\n", tache[i].statut , tache[i].statutDetache );
             trouve = 1;
             break; 
         }
@@ -267,7 +267,7 @@ void sousmenurechercher(){
 		system("cls");
 	printf("\n************___1__rechercher par identifian_**************************\n");
 	printf("\n**********____2__rechercher par titre___************************************\n");
-	printf("\n***********___3__ENTRER 0 pour reterner au menu principale*************************\n");
+	printf("\n***********___3__<<ENTRER>> [__ 0 __] pour reterner au menu principale*************************\n");
 }
 
 //------------------------------------------------rechercher avec le titre ------------------------------------------------------------------------------
@@ -370,7 +370,6 @@ int main(){
         afficher();
         break;
         case 5 : supprimerTache();
-	  printf("la tache a etais supprime !! \n");
 	  afficher();
 	  break;
 	  case 6 : sousmenurechercher();
@@ -384,16 +383,16 @@ int main(){
 	  }
 	  case 7 : statistique();
 	  break;
-	  
+	  default :
+	system("cls");
+	break;
 		
 	}
 	
 		
-	if(choix == 8){
-	system("cls");
-	break;
+
 	}
-	}
+	
 	
 	return 0;
 }

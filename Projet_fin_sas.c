@@ -102,6 +102,7 @@ ajoute();
 	}	
 }
 
+
 //------------------------------------------------[ fonction d'affichage ]-------------------------------------------------------------
 
 void afficher(){
@@ -148,6 +149,7 @@ int j;
     }  
 }
 //----------------------------------------------fonction de modification---------------------------------------------------------------
+
 void modifierTache(){
     int identifiant;
     int trouve = 0;
@@ -262,6 +264,7 @@ void sousmenuAffich(){
 	printf("\n***********___5__ENTRER 0 pour reterner au menu principale*************************\n");
 	
 }
+//------------------------------------------------------fonction de sous menu rechercher  -----------------------------------------------------------------------------
 
 void sousmenurechercher(){
 		system("cls");
@@ -300,6 +303,7 @@ void rechercherParTitre() {
 
 
 void statistique(){
+	
 	
 	printf("le nombre total des taches est : %d \n",nombretaches);
 	printf("le nombre de taches completes : %d \n",finalisee);

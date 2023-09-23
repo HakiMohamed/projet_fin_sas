@@ -13,14 +13,15 @@ typedef struct typetache{
 	char titre[50];
 	char description[250];
 	struct datecomplet deadline;
-	char statut[20];
+	int statut;
+	char statutDetache[30];
 	
 }typetache;
 //----------------------------------------[ declaration ] -------------------------------------------------------------------------------------------
 
 typetache tache[300], k;
 typetache ajouter_plusieurs;
-int i=0 , nombreajoute, nombretaches=0, N=0, Nbrtacheajoute=0,NBR=0,comparer, j ;
+int i=0 , nombreajoute, nombretaches=0, N=0, Nbrtacheajoute=0,NBR=0,comparer, j , realiser=0, encours=0,finalisee=0;
 
 //----------------------------------------------------[ menu ]------------------------------------------------------------------------------------------
 void menu (){
@@ -53,11 +54,24 @@ void ajoute(){
 	scanf("%d", &tache[N].deadline.mois);
 	printf("l'annee :");
 	scanf("%d",&tache[N].deadline.annee);
-	printf("veuillez saisir le statut de votre tache : ");
-	scanf("  %[^\n]s  ",tache[N].statut);
+	printf("choisir le statut de votre tache :  \n1__[a realiser]\n2__[en cours de realisation]\n3___[finalisee]\n reponse :");
+	scanf("%d",&tache[N].statut);
+	if(tache[N].statut==1){
+    strcpy(tache[N].statutDetache, "a realiser");
+    realiser++;
+	}
+	else if(tache[N].statut==2){
+	strcpy(tache[N].statutDetache, "en cours de realisation");
+	encours++;
+	}
+	else if(tache[N].statut==3){
+    strcpy(tache[N].statutDetache, "finalisee");
+    finalisee++;
+	}
 	tache[N].identifian=nombretaches+1;
 	nombretaches++;
 	N++;
+	system("cls");
 }
 
 //-----------------------------------------------------[fonctions pour ajouter plusieurs taches ]--------------------------------------------------------------------------
@@ -91,7 +105,7 @@ ajoute();
 
 void afficher(){
 	for(i=0;i<nombretaches;i++){
-		printf(" la tache numero :%d \n\nle titre : %s \n l'idantifiant :%d \n la description :%s \n date limite  \n le jour : %d \n le mois : %d \n l'annee : %d\n statut : %s \n\n\n",i+1,tache[i].titre,tache[i].identifian,tache[i].description,tache[i].deadline.jour,tache[i].deadline.mois,tache[i].deadline.annee,tache[i].statut);
+		printf(" la tache numero :%d \n\nle titre : %s \n l'idantifiant :%d \n la description :%s \n date limite  \n le jour : %d \n le mois : %d \n l'annee : %d\n statut : %d %s \n\n\n",i+1,tache[i].titre,tache[i].identifian,tache[i].description,tache[i].deadline.jour,tache[i].deadline.mois,tache[i].deadline.annee,tache[i].statut,tache[i].statutDetache);
 	}
 }
 
@@ -151,6 +165,7 @@ void modifierTache(){
 		
 		printf("Nouvelle description : ");
             scanf(" %[^\n]s", tache[i].description);
+            
             }
             else if(choixDEmodification==2){
 		
@@ -160,21 +175,24 @@ void modifierTache(){
             scanf("%d", &tache[i].deadline.mois);
             printf("Nouvelle annee de la date limite : ");
             scanf("%d", &tache[i].deadline.annee);
+            
             }
             else if(choixDEmodification==3){
-		printf("Nouveau statut : ");
-            scanf(" %[^\n]s", tache[i].statut);
+		printf("Nouveau statut : \n1__[a realiser]\n2__[en cours de realisation]\n3___[finalisee]\n reponse :");
+            scanf("%d",&tache[i].statut);
+            
       }
             trouve = 1;
-            break; 
+             
         }
     }
 
-    if (!trouve) {
+    if (trouve!=1) {
         printf("Tache avec l'identifiant %d non trouvee.\n", identifiant);
     } else {
         printf("Tache numero %d modifiee avec succes.\n", identifiant);
     }
+    
 }
 //---------------------------------------------------------fonction de supprimer une tache ------------------------------------------
 void supprimerTache() {
@@ -219,14 +237,14 @@ void rechercherParIdentifiant() {
             printf("Titre : %s\n", tache[i].titre);
             printf("Description : %s\n", tache[i].description);
             printf("Date limite : %d/%d/%d\n", tache[i].deadline.jour, tache[i].deadline.mois, tache[i].deadline.annee);
-            printf("Statut : %s\n", tache[i].statut);
+            printf("Statut : %d  %s\n", tache[i].statut , tache[i].statutDetache );
             trouve = 1;
             break; 
         }
     }
 
     if (trouve!=1) {
-        printf("Tâche avec l'identifiant %d non trouvée.\n", identifiant);
+        printf("Tache avec l'identifiant %d non trouvee.\n", identifiant);
     }
 }
 
@@ -257,7 +275,7 @@ void rechercherParTitre() {
     char titreRecherche[50];
     int trouve = 0;
 
-    printf("Entrez le titre de la tâche à rechercher : ");
+    printf("Entrez le titre de la tache a rechercher : ");
     scanf(" %[^\n]s", titreRecherche);
 
     
@@ -268,7 +286,7 @@ void rechercherParTitre() {
             printf("Titre : %s\n", tache[i].titre);
             printf("Description : %s\n", tache[i].description);
             printf("Date limite : %d/%d/%d\n", tache[i].deadline.jour, tache[i].deadline.mois, tache[i].deadline.annee);
-            printf("Statut : %s\n", tache[i].statut);
+            printf("Statut : %d\n", tache[i].statut,tache[i].statutDetache);
             trouve = 1;
         }
     }
@@ -277,7 +295,19 @@ void rechercherParTitre() {
         printf("Aucune tache avec le titre '%s' trouvee.\n", titreRecherche);
     }
 }
+//---------------------------------------------------------statistique--------------------------------------------------------
 
+
+void statistique(){
+	
+	printf("le nombre total des taches est : %d \n",nombretaches);
+	printf("le nombre de taches completes : %d \n",finalisee);
+	printf("le nombre de taches incompletes : %d\n ",encours+realiser);
+	
+	
+	
+	
+}
 
 
 
@@ -342,16 +372,18 @@ int main(){
 	  	case 2 : rechercherParTitre();
 	  	break;
 	  }
-	  
+	  case 7 : statistique();
 	  break;
+	  
 		
 	}
 	
 		
 	if(choix == 8){
 	system("cls");
-	break;}
-	};
+	break;
+	}
+	}
 	
 	return 0;
 }

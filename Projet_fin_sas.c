@@ -303,12 +303,23 @@ void rechercherParTitre() {
 
 
 void statistique(){
+	int l ;
+	int jourRest;
+	system("cls");
+	printf("le nombre total des taches est : --------%d------- \n",nombretaches);
+	printf("le nombre de taches completes : ---------%d------------ \n",finalisee);
+	printf("le nombre de taches incompletes : -------%d----------\n ",encours+realiser);
 	
-	
-	printf("le nombre total des taches est : %d \n",nombretaches);
-	printf("le nombre de taches completes : %d \n",finalisee);
-	printf("le nombre de taches incompletes : %d\n ",encours+realiser);
-	
+	for(l=0;l<nombretaches;l++){
+		if(tache[l].dateActuel.jour > tache[l].deadline.jour){
+			jourRest= (30 -tache[l].dateActuel.jour ) + tache[l].deadline.jour;
+		}
+		else 
+		jourRest= tache[l].deadline.jour - tache[l].dateActuel.jour;
+		
+		
+		printf(" ---%d__jours  rester pour la tache____N : %d --- \n",jourRest,tache[l].identifian);
+	}
 	
 	
 	
